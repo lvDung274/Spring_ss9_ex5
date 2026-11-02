@@ -27,6 +27,9 @@ public class Employee {
     @Column(nullable = false)
     private Double salary;
 
+    @Column(name = "avatar_url")
+    private String avatarUrl;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", nullable = false)
     private Department department;

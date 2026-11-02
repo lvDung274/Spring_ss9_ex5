@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -36,6 +37,17 @@ public class EmployeeController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
+    }
+    @PutMapping
+    public ResponseEntity<?>updateAvatar(@PathVariable Long id, @RequestParam("file")MultipartFile file){
+        Employee updatedEmployee = employeeService.updateAvatar(id, file);
+
+        ApiResponse<?> response = ApiResponse.builder()
+                .status("SUCCESS")
+                .message("Cập nhật ảnh đại diện thành công")
+                .data(updatedEmployee)
+                .build();
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
 }

@@ -10,6 +10,7 @@ import com.example.demo_department.models.repositories.EmployeeRepository;
 import com.example.demo_department.models.services.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ import java.util.List;
 public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final DepartmentRepository departmentRepository;
+
 
     @Override
     public List<Employee> findAll() {
@@ -41,6 +43,13 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .salary(req.salary())
                 .department(department)
                 .build();
+
+        return employeeRepository.save(employee);
+    }
+    @Override
+    public Employee updateAvatar(Long employeeId, MultipartFile file) {
+        Employee employee = employeeRepository.findById(employeeId)
+                .orElseThrow(() -> new ResourceNotFoundException("Không tìm thấy nhân viên"));
 
         return employeeRepository.save(employee);
     }
